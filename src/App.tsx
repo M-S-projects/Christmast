@@ -1,10 +1,16 @@
-import React from 'react';
+import { BrowserRouter } from "react-router-dom";
+import GlobalStyle from "./style/globals";
+import * as S from "./style";
+import PromotionPage from "./pages";
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+    <BrowserRouter>
+      <GlobalStyle />
+      <S.Index className="App">
+        <PromotionPage />
+      </S.Index>
+    </BrowserRouter>
   );
 }
 
