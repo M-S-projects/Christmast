@@ -1,16 +1,22 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyle from "./style/globals";
 import * as S from "./style";
-import PromotionPage from "./pages";
+import PromotionPage from "./pages/promotion";
+import RegisterPage from "./pages/register";
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <GlobalStyle />
       <S.Index className="App">
-        <PromotionPage />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<PromotionPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Routes>
+        </BrowserRouter>
       </S.Index>
-    </BrowserRouter>
+    </>
   );
 }
 
