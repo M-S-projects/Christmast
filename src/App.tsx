@@ -3,6 +3,7 @@ import GlobalStyle from "./style/globals";
 import * as S from "./style";
 import PromotionPage from "./pages/promotion";
 import RegisterPage from "./pages/register";
+import Background from "./components/Background";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={<PromotionPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/background" element={<Background />} />
           </Routes>
         </BrowserRouter>
       </S.Index>
