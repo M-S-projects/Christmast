@@ -5,6 +5,7 @@ export const register = styled.form`
   flex-direction: column;
   align-items: center;
   font-size: 16px;
+  background-color: #000;
   input {
     width: 30em;
     color: #000;

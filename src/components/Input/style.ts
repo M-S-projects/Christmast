@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { inputProps } from "./input";
+import { inputProps } from "../../types/InputProps";
 
 export const Input = styled.input<inputProps>`
   width: ${(props) => props.width};

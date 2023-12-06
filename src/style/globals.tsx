@@ -116,7 +116,7 @@ const Theme = `
 `;
 
 const GlobalStyle = () => {
-  return <Global styles={style} />;
+  return <Global styles={style}></Global>;
 };
 
 export default GlobalStyle;

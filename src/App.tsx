@@ -4,17 +4,19 @@ import * as S from "./style";
 import PromotionPage from "./pages/promotion";
 import RegisterPage from "./pages/register";
 import Background from "./components/Background";
+import Login from "./pages/login";
 
 function App() {
   return (
     <>
       <GlobalStyle />
+      <Background />
       <S.Index className="App">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<PromotionPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/background" element={<Background />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </BrowserRouter>
       </S.Index>
