@@ -5,23 +5,24 @@ import PromotionPage from "./pages/promotion";
 import RegisterPage from "./pages/register";
 import Background from "./components/Background";
 import Login from "./pages/login";
+import CommentPostPage from "./pages/commentPost";
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <Background />
       <S.Index className="App">
+        <Background />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<PromotionPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/postPage/:userId" element={<CommentPostPage />} />
           </Routes>
         </BrowserRouter>
       </S.Index>
     </>
   );
 }
-
 export default App;

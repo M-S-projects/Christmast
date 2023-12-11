@@ -6,6 +6,7 @@ export const LoginPage = styled.div`
   flex-direction: column;
   justify-content: center;
   font-size: 14px;
+
   input {
     width: 30em;
     color: #000;

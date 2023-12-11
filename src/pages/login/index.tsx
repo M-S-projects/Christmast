@@ -24,8 +24,8 @@ const Login = () => {
     }).then((res) => {
       localStorage.setItem("chr-accessToken", res.data.accessToken);
       localStorage.setItem("chr-accessExpiredAt", res.data.expiredAt);
+      console.log(res);
     });
-    console.log(_response);
   };
 
   return (
