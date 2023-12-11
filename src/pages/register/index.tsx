@@ -20,27 +20,33 @@ const RegisterPage = () => {
   };
 
   const signUp = async () => {
-    const _response = await axios({
-      method: "post",
-      url: `${baseUrl}/auth/new`,
-      data: {
-        email: email,
-        nickName: nickname,
-        password: password,
-      },
-    })
-      .then((res) => {
-        if (res.status === 201) {
-          navigate("./");
-        }
+    if (email && nickname && password) {
+      const _response = await axios({
+        method: "post",
+        url: `${baseUrl}/auth/new`,
+        data: {
+          email: email,
+          nickName: nickname,
+          password: password,
+        },
       })
-      .catch((err) => {
-        if (err.response.data.code === 409) {
-          console.log("이미 있는 계정입니다.");
-          setVerified(false);
-        }
-      });
-    console.log(_response);
+        .then((res) => {
+          if (res.status === 201) {
+            navigate("./");
+          }
+        })
+        .catch((err) => {
+          if (err.response.data.code === 409) {
+            //toast(이미 있는 계정입니다.)
+            setVerified(false);
+          }
+        });
+      console.log(_response);
+    } else if (password === repw) {
+      //toast (비밀번호가 다릅니다.)
+    } else {
+      //toast(정보가 전부 입력되지 않았습니다!)
+    }
   };
 
   const verifyEmail = async () => {
@@ -62,6 +68,7 @@ const RegisterPage = () => {
       })
       .then((res) => {
         if (res.status === 204) {
+          //toast (인증번호가 틀립니다)
           setVerified(true);
         }
       })
@@ -76,50 +83,57 @@ const RegisterPage = () => {
     >
       <TreeSvg />
       <S.h1>회원가입맨123</S.h1>
-      <div>이메일</div>
+      <S.inputDesc>이메일</S.inputDesc>
       <S.email>
         {verified ? (
-          <input type="text" value={email} />
+          <S.input type="email" value={email} />
         ) : (
-          <input
-            type="text"
+          <S.input
+            type="email"
             onChange={(event: any) => {
               setEmail(event.target.value);
             }}
           />
         )}
-        <button onClick={verifyEmail}>인증하기 </button>
+        <S.button onClick={verifyEmail}>인증 번호 받기</S.button>
       </S.email>
-      <input
-        type="text"
+      <S.input
+        type="number"
         placeholder="이메일 인증해줘"
         onChange={(event: any) => {
           setCode(event.target.value);
         }}
       />
-      <input type="button" value={"ㅁㄴㅇㄹ"} onClick={patchEmail} />
-      <div>닉네임</div>
-      <input
-        type="text"
-        onChange={(event: any) => {
-          setNickname(event.target.value);
-        }}
-      />
-      <div>비밀번호</div>
-      <input
-        type="password"
-        onChange={(event: any) => {
-          setPassword(event.target.value);
-        }}
-      />
-      <div>비밀번호 재입력</div>
-      <input
-        type="password"
-        onChange={(event: any) => {
-          setRepw(event.target.value);
-        }}
-      />
-      <input type="submit" onClick={onSubmit} value={"회원가입 완성"} />
+      <S.button onClick={patchEmail}>인증하기</S.button>
+
+      {verified === true ? (
+        <>
+          <S.inputDesc>닉네임</S.inputDesc>
+          <S.input
+            type="nickname"
+            onChange={(event: any) => {
+              setNickname(event.target.value);
+            }}
+          />
+          <S.inputDesc>비밀번호</S.inputDesc>
+          <S.input
+            type="password"
+            onChange={(event: any) => {
+              setPassword(event.target.value);
+            }}
+          />
+          <S.inputDesc>비밀번호 재입력</S.inputDesc>
+          <S.input
+            type="password"
+            onChange={(event: any) => {
+              setRepw(event.target.value);
+            }}
+          />
+          <S.button onClick={onSubmit}>회원가입 하기</S.button>
+        </>
+      ) : (
+        ""
+      )}
     </S.register>
   );
 };

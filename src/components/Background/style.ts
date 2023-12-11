@@ -15,7 +15,12 @@ export const Container = styled.div`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: #000;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    180deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(50, 79, 124, 1) 100%
+  );
   z-index: -1;
 `;
 
