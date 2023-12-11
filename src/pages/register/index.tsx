@@ -13,6 +13,7 @@ const RegisterPage = () => {
   const [verified, setVerified] = useState(false);
 
   const navigate = useNavigate();
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const onSubmit = (event: any) => {
     if (verified === true && password === repw) signUp();
@@ -21,7 +22,7 @@ const RegisterPage = () => {
   const signUp = async () => {
     const _response = await axios({
       method: "post",
-      url: "https://port-0-chr-koh2xljfbuiob.sel4.cloudtype.app/v1/auth/new",
+      url: `${baseUrl}/auth/new`,
       data: {
         email: email,
         nickName: nickname,
@@ -29,7 +30,7 @@ const RegisterPage = () => {
       },
     })
       .then((res) => {
-        if (res.status == 201) {
+        if (res.status === 201) {
           navigate("./");
         }
       })
@@ -45,7 +46,7 @@ const RegisterPage = () => {
   const verifyEmail = async () => {
     const _response = await axios({
       method: "post",
-      url: "https://port-0-chr-koh2xljfbuiob.sel4.cloudtype.app/v1/email",
+      url: `${baseUrl}/email`,
       data: {
         email: email,
       },
@@ -55,7 +56,7 @@ const RegisterPage = () => {
 
   const patchEmail = () => {
     axios
-      .patch("https://port-0-chr-koh2xljfbuiob.sel4.cloudtype.app/v1/email", {
+      .patch(`${baseUrl}/email`, {
         email: email,
         code: code,
       })

@@ -4,24 +4,25 @@ import * as S from "./style";
 import PromotionPage from "./pages/promotion";
 import RegisterPage from "./pages/register";
 import Background from "./components/Background";
-import Tree from "./pages/tree";
+import Login from "./pages/login";
+import CommentPostPage from "./pages/commentPost";
 
 function App() {
   return (
     <>
       <GlobalStyle />
       <S.Index className="App">
+        <Background />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<PromotionPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/background" element={<Background />} />
-            <Route path="/tree/:userId/:pageId" element={<Tree />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/postPage/:userId" element={<CommentPostPage />} />
           </Routes>
         </BrowserRouter>
       </S.Index>
     </>
   );
 }
-
 export default App;

@@ -1,23 +1,8 @@
+import { inputProps } from "../../types/InputProps";
 import * as S from "./style";
 
-export interface inputProps {
-  children?: string;
-  width?: number;
-  height?: number;
-  color?: string;
-  background?: string;
-  fontSize?: number;
-  fontWeight?: number;
-  border?: string;
-  borderRadius?: number;
-  hoverBackground?: string;
-  hoverBorder?: string;
-  hoverColor?: string;
-  onClick?: Function;
-}
-
 export const Input = ({
-  children,
+  placeholder,
   width,
   height,
   color,
@@ -29,10 +14,12 @@ export const Input = ({
   hoverBackground,
   hoverBorder,
   hoverColor,
-  onClick,
+  onChange,
+  type,
 }: inputProps) => {
   return (
     <S.Input
+      type={type}
       width={width}
       height={height}
       fontSize={fontSize}
@@ -44,9 +31,8 @@ export const Input = ({
       hoverBackground={hoverBackground}
       hoverBorder={hoverBorder}
       hoverColor={hoverColor}
-      onClick={onClick}
-    >
-      {children}
-    </S.Input>
+      onChange={(event: any) => onChange(event.target.value)}
+      placeholder={placeholder}
+    ></S.Input>
   );
 };
