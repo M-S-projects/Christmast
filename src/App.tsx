@@ -20,7 +20,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/postPage/:userId" element={<CommentPostPage />} />
-            <Route path="/tree/:userId/:pageId" element={<Tree />} />
+            <Route path="/tree/:userId" element={<Tree />} />
           </Routes>
         </BrowserRouter>
       </S.Index>
