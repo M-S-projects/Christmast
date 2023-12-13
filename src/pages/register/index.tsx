@@ -14,6 +14,7 @@ const RegisterPage = () => {
   const [code, setCode] = useState(0);
   const [verified, setVerified] = useState(false);
   const [pwSame, setPwSame] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const navigate = useNavigate();
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -25,6 +26,8 @@ const RegisterPage = () => {
   const codeSend = () => toast.success("인증번호가 발송되었습니다!");
   const codeSuccess = () => toast.success("인증되었습니다!");
   const registerSuccess = () => toast.success("회원가입이 완료되었습니다!");
+  const codeSendErr = () =>
+    toast.error("코드를 요청하고 1분이내에는 재요청을 할 수 없습니다");
 
   useEffect(() => {
     if (password !== "" && repw !== "" && password === repw) {
@@ -71,6 +74,13 @@ const RegisterPage = () => {
   };
 
   const verifyEmail = async () => {
+    if (isButtonDisabled) {
+      codeSendErr();
+      return 0;
+    }
+
+    setIsButtonDisabled(true);
+
     const _response = await axios({
       method: "post",
       url: `${baseUrl}/email`,
@@ -81,6 +91,10 @@ const RegisterPage = () => {
       .then(() => codeSend())
       .catch((err) => err.response);
     console.log(_response);
+
+    setTimeout(() => {
+      setIsButtonDisabled(false);
+    }, 60000);
   };
 
   const patchEmail = () => {
@@ -133,7 +147,9 @@ const RegisterPage = () => {
             />
           )}
 
-          <S.button onClick={verifyEmail}>인증 번호 받기</S.button>
+          <S.button onClick={verifyEmail} disabled={isButtonDisabled}>
+            인증 번호 받기
+          </S.button>
         </S.email>
         {verified ? (
           <>

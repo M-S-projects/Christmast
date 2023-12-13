@@ -31,18 +31,18 @@ const Login = () => {
   return (
     <S.LoginPage>
       <TreeSvg />
-      <S.title>로그인맨이야</S.title>
-      <input
+      <S.title>로그인</S.title>
+      <S.input
         type="text"
         placeholder="이메일"
         onChange={(e) => setEmail(e.target.value)}
       />
-      <input
+      <S.input
         type="password"
         placeholder="비밀번호"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <input type="submit" value={"로그인하기"} onClick={onLogin} />
+      <S.input type="submit" value={"로그인하기"} onClick={onLogin} />
     </S.LoginPage>
   );
 };
