@@ -1,8 +1,10 @@
 import axios from "axios";
 import TreeSvg from "../../assets/svgs/Tree";
 import * as S from "./style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -11,16 +13,38 @@ const RegisterPage = () => {
   const [nickname, setNickname] = useState("");
   const [code, setCode] = useState(0);
   const [verified, setVerified] = useState(false);
+  const [pwSame, setPwSame] = useState(false);
 
   const navigate = useNavigate();
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
+  const sameAccountErr = () => toast.error("이미 있는 게정입니다.");
+  const pwErr = () => toast.error("비밀번호가 다릅니다.");
+  const notAllErr = () => toast.error("정보가 전부 입력되지 않았습니다");
+  const codeErr = () => toast.error("인증번호가 다릅니다.");
+  const codeSend = () => toast.success("인증번호가 발송되었습니다!");
+  const codeSuccess = () => toast.success("인증되었습니다!");
+  const registerSuccess = () => toast.success("회원가입이 완료되었습니다!");
+
+  useEffect(() => {
+    if (password !== "" && repw !== "" && password === repw) {
+      setPwSame(true);
+    } else {
+      setPwSame(false);
+    }
+  }, [password, repw]);
+
   const onSubmit = (event: any) => {
-    if (verified === true && password === repw) signUp();
+    if (verified) signUp();
   };
 
   const signUp = async () => {
-    if (email && nickname && password) {
+    if (nickname === "" || password === "" || repw === "") {
+      notAllErr();
+    } else if (!pwSame) {
+      pwErr();
+      console.log("비번맨");
+    } else if (email && nickname && password) {
       const _response = await axios({
         method: "post",
         url: `${baseUrl}/auth/new`,
@@ -31,21 +55,18 @@ const RegisterPage = () => {
         },
       })
         .then((res) => {
+          registerSuccess();
           if (res.status === 201) {
             navigate("./");
           }
         })
         .catch((err) => {
           if (err.response.data.code === 409) {
-            //toast(이미 있는 계정입니다.)
+            sameAccountErr();
             setVerified(false);
           }
         });
       console.log(_response);
-    } else if (password === repw) {
-      //toast (비밀번호가 다릅니다.)
-    } else {
-      //toast(정보가 전부 입력되지 않았습니다!)
     }
   };
 
@@ -56,7 +77,9 @@ const RegisterPage = () => {
       data: {
         email: email,
       },
-    }).catch((err) => err.response);
+    })
+      .then(() => codeSend())
+      .catch((err) => err.response);
     console.log(_response);
   };
 
@@ -68,73 +91,98 @@ const RegisterPage = () => {
       })
       .then((res) => {
         if (res.status === 204) {
-          //toast (인증번호가 틀립니다)
+          codeSuccess();
           setVerified(true);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => codeErr());
   };
 
   return (
-    <S.register
-      onSubmit={(event) => {
-        event.preventDefault();
-      }}
-    >
-      <TreeSvg />
-      <S.h1>회원가입맨123</S.h1>
-      <S.inputDesc>이메일</S.inputDesc>
-      <S.email>
-        {verified ? (
-          <S.input type="email" value={email} />
-        ) : (
-          <S.input
-            type="email"
-            onChange={(event: any) => {
-              setEmail(event.target.value);
-            }}
-          />
-        )}
-        <S.button onClick={verifyEmail}>인증 번호 받기</S.button>
-      </S.email>
-      <S.input
-        type="number"
-        placeholder="이메일 인증해줘"
-        onChange={(event: any) => {
-          setCode(event.target.value);
-        }}
+    <>
+      <ToastContainer
+        position="top-right" // 알람 위치 지정
+        autoClose={2000} // 자동 off 시간
+        hideProgressBar={false} // 진행시간바 숨김
+        closeOnClick // 클릭으로 알람 닫기
+        rtl={false} // 알림 좌우 반전
+        pauseOnFocusLoss // 화면을 벗어나면 알람 정지
+        draggable // 드래그 가능
+        pauseOnHover // 마우스를 올리면 알람 정지
+        theme="dark"
+        limit={3} // 알람 개수 제한
       />
-      <S.button onClick={patchEmail}>인증하기</S.button>
+      <S.register
+        onSubmit={(event) => {
+          event.preventDefault();
+        }}
+      >
+        <TreeSvg />
+        <S.h1>회원가입</S.h1>
+        <S.inputDesc>이메일</S.inputDesc>
+        <S.email>
+          {verified ? (
+            <S.input type="email" value={email} />
+          ) : (
+            <S.input
+              type="email"
+              placeholder="이메일"
+              onChange={(event: any) => {
+                setEmail(event.target.value);
+              }}
+            />
+          )}
 
-      {verified === true ? (
-        <>
-          <S.inputDesc>닉네임</S.inputDesc>
-          <S.input
-            type="nickname"
-            onChange={(event: any) => {
-              setNickname(event.target.value);
-            }}
-          />
-          <S.inputDesc>비밀번호</S.inputDesc>
-          <S.input
-            type="password"
-            onChange={(event: any) => {
-              setPassword(event.target.value);
-            }}
-          />
-          <S.inputDesc>비밀번호 재입력</S.inputDesc>
-          <S.input
-            type="password"
-            onChange={(event: any) => {
-              setRepw(event.target.value);
-            }}
-          />
-          <S.button onClick={onSubmit}>회원가입 하기</S.button>
-        </>
-      ) : (
-        ""
-      )}
-    </S.register>
+          <S.button onClick={verifyEmail}>인증 번호 받기</S.button>
+        </S.email>
+        {verified ? (
+          <>
+            <S.input type="number" value={code} />
+            <S.button>인증하기</S.button>
+          </>
+        ) : (
+          <>
+            <S.input
+              type="number"
+              placeholder="이메일 인증코드"
+              onChange={(event: any) => {
+                setCode(event.target.value);
+              }}
+            />
+            <S.button onClick={patchEmail}>인증하기</S.button>
+          </>
+        )}
+
+        {verified === true ? (
+          <>
+            <S.inputDesc>닉네임</S.inputDesc>
+            <S.input
+              type="nickname"
+              onChange={(event: any) => {
+                setNickname(event.target.value);
+              }}
+            />
+            <S.inputDesc>비밀번호</S.inputDesc>
+            <S.input
+              type="password"
+              onChange={(event: any) => {
+                setPassword(event.target.value);
+              }}
+            />
+            <S.inputDesc>비밀번호 재입력</S.inputDesc>
+            <S.input
+              type="password"
+              onChange={(event: any) => {
+                setRepw(event.target.value);
+              }}
+            />
+            <S.button onClick={onSubmit}>회원가입 하기</S.button>
+          </>
+        ) : (
+          ""
+        )}
+      </S.register>
+    </>
   );
 };
 
