@@ -16,3 +16,16 @@ export const LoginPage = styled.div`
 export const title = styled.h2`
   font-size: 45px;
 `;
+
+export const input = styled.input`
+  width: 5rem;
+  background-color: #fff;
+  font-size: 18px;
+  height: 3rem;
+  text-indent: 1em;
+  border-radius: 5px;
+  border: none;
+  margin-top: 3px;
+  color: #000;
+  margin-bottom: 10px;
+`;

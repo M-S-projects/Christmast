@@ -30,34 +30,35 @@ export const email = styled.div`
     width: 7em;
     color: #000;
     font-size: 18px;
-    height: 2em;
-    background-color: #c9e1c3;
+    height: 3rem;
+    background-color: #fff;
     border: none;
-    border-radius: 2px;
   }
 `;
 
 export const input = styled.input`
   width: 30em;
-  background-color: #c9e1c3;
+  background-color: #fff;
   font-size: 18px;
-  height: 2em;
+  height: 3rem;
   text-indent: 1em;
   border-radius: 2px;
   border: none;
   margin-top: 3px;
   color: #000;
+  margin-bottom: 10px;
 `;
 
 export const button = styled.button`
   width: 30em;
-  background-color: #c9e1c3;
+  background-color: #fff;
   font-size: 18px;
-  height: 2em;
+  height: 3rem;
   border-radius: 2px;
   border: none;
   margin-top: 3px;
   color: #000;
+  margin-bottom: 10px;
 `;
 
 export const inputDesc = styled.div`
