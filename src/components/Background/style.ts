@@ -2,6 +2,7 @@ import styled, { keyframes } from "styled-components";
 
 interface SnowflakeProps {
   speed: number;
+  size: number;
 }
 
 export const snowfall = keyframes`
@@ -26,10 +27,10 @@ export const Container = styled.div`
 
 export const Snowflake = styled.div<SnowflakeProps>`
   position: absolute;
-  width: 1vw;
-  height: 1vw;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
   background: white;
   border-radius: 50%;
-  filter: blur(3px);
+  filter: blur(5px);
   animation: ${snowfall} ${(props) => props.speed}s linear infinite;
 `;
