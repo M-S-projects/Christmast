@@ -61,7 +61,8 @@ export const ItemContainer = styled.div`
 `;
 
 export const LinkContainer = styled.div`
-  a {
+  a,
+  button {
     display: inline-block;
     width: 10em;
     height: 2em;
@@ -72,5 +73,7 @@ export const LinkContainer = styled.div`
     margin-left: 10px;
     margin-right: 10px;
     border-radius: 0.75em;
+    border: none;
+    cursor: pointer;
   }
 `;
