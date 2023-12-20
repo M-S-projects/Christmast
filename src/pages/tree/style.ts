@@ -5,6 +5,8 @@ export const Container = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
+  overflow-x: hidden;
+  overflow-y: hidden;
 
   .leftArrow {
     rotate: 180deg;
@@ -61,7 +63,8 @@ export const ItemContainer = styled.div`
 `;
 
 export const LinkContainer = styled.div`
-  a {
+  a,
+  button {
     display: inline-block;
     width: 10em;
     height: 2em;
@@ -72,5 +75,6 @@ export const LinkContainer = styled.div`
     margin-left: 10px;
     margin-right: 10px;
     border-radius: 0.75em;
+    border: none;
   }
 `;

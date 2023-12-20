@@ -5,12 +5,14 @@ import PromotionPage from "./pages/promotion";
 import RegisterPage from "./pages/register";
 import Background from "./components/Background";
 import Login from "./pages/login";
-import CommentPostPage from "./pages/commentPost";
 import Tree from "./pages/tree";
+import { RecoilRoot } from "recoil";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <>
+    <RecoilRoot>
+      <ToastContainer />
       <GlobalStyle />
       <S.Index className="App">
         <Background />
@@ -19,12 +21,11 @@ function App() {
             <Route path="/" element={<PromotionPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/postPage/:userId" element={<CommentPostPage />} />
             <Route path="/tree/:userId" element={<Tree />} />
           </Routes>
         </BrowserRouter>
       </S.Index>
-    </>
+    </RecoilRoot>
   );
 }
 export default App;
