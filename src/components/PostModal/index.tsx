@@ -8,6 +8,7 @@ import { commentType, isOpenState, pageNextState } from "../../atoms/state";
 import MessageContent from "./messageContent";
 import CmtType from "./comentType";
 import CloseSvg from "../../assets/svgs/Close";
+import { toast } from "react-toastify";
 
 const CommentPostPage = () => {
   const params = useParams().userId;
@@ -17,6 +18,8 @@ const CommentPostPage = () => {
   const [isOpen, setIsOpen] = useRecoilState(isOpenState);
   const [pageNext, setPageNext] = useRecoilState<boolean>(pageNextState);
   const cmtType = useRecoilValue(commentType);
+
+  const cmtTypeError = () => toast.error("장식을 골라야해요!");
 
   useEffect(() => {
     console.log(params);
@@ -28,6 +31,14 @@ const CommentPostPage = () => {
       console.log(cmtType);
     } else {
       posting();
+    }
+  };
+
+  const onNextBtnClick = () => {
+    if (cmtType === undefined) {
+      cmtTypeError();
+    } else {
+      setPageNext(true);
     }
   };
 
@@ -70,11 +81,7 @@ const CommentPostPage = () => {
       ) : (
         <>
           <CmtType />
-          <S.button
-            type="button"
-            onClick={() => setPageNext(true)}
-            value={"다음으로"}
-          />
+          <S.button type="button" onClick={onNextBtnClick} value={"다음으로"} />
         </>
       )}
     </Modal>

@@ -33,6 +33,7 @@ export const textarea = styled.textarea`
   padding: 0.5em;
   height: auto;
   margin-top: 1em;
+  margin-bottom: 1em;
 `;
 
 export const button = styled.input`
@@ -47,6 +48,7 @@ export const button = styled.input`
   background-color: #e48744;
   margin-left: 50%;
   transform: translate(-50%, 0);
+  margin-right: 1em;
 `;
 
 export const name = styled.input`

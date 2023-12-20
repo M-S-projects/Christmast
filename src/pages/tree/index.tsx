@@ -4,6 +4,7 @@ import {
   Link,
   useLocation,
   useParams,
+  useRoutes,
   useSearchParams,
 } from "react-router-dom";
 import CommentTree from "../../assets/svgs/CommentTree";
@@ -12,10 +13,10 @@ import { TreeItemType } from "../../types/TreeItemType";
 import TreeItem from "../../components/TreeItem";
 import ArrowSvg from "../../assets/svgs/Arrow";
 import { toast } from "react-toastify";
-import Toastcontainer from "../../components/ToastContainer";
 import { useRecoilState } from "recoil";
 import { isOpenState, pageNextState } from "../../atoms/state";
 import CommentPostPage from "../../components/PostModal";
+import { API } from "../../API";
 
 type arrowType = "left" | "right";
 
@@ -32,6 +33,18 @@ const Tree = () => {
 
   const firstPage = () => toast.error("첫 페이지입니다.");
   const lastPage = () => toast.error("마지막 페이지입니다.");
+
+  useEffect(() => {
+    userNameFetch();
+  }, [params]);
+
+  const userNameFetch = async () => {
+    const _response = await API({
+      method: "get",
+      url: `/auth/${params.userId}`,
+    });
+    console.log(_response);
+  };
 
   const pageCheck = (arrowDirection: arrowType) => {
     if (arrowDirection === "left" && Number(pageId) === 0) {
@@ -62,7 +75,6 @@ const Tree = () => {
 
   return (
     <>
-      <Toastcontainer />
       <S.Container>
         <Link
           className="leftArrow"

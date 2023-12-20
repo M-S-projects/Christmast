@@ -7,10 +7,12 @@ import Background from "./components/Background";
 import Login from "./pages/login";
 import Tree from "./pages/tree";
 import { RecoilRoot } from "recoil";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <RecoilRoot>
+      <ToastContainer />
       <GlobalStyle />
       <S.Index className="App">
         <Background />
