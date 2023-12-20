@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
-import { commentType } from "../../../atoms/state";
-import CandySvg from "../../../assets/svgs/Candy";
-import BellSvg from "../../../assets/svgs/Bell";
+import { commentType } from "../../../../atoms/state";
+import CandySvg from "../../../../assets/svgs/Candy";
+import BellSvg from "../../../../assets/svgs/Bell";
 import * as S from "../style";
 
 const CmtType = () => {

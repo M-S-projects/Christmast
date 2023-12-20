@@ -1,13 +1,13 @@
 import * as S from "./style";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { API } from "../../API";
+import { API } from "../../../API";
 import Modal from "react-modal";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { commentType, isOpenState, pageNextState } from "../../atoms/state";
+import { commentType, isOpenState, pageNextState } from "../../../atoms/state";
 import MessageContent from "./messageContent";
 import CmtType from "./comentType";
-import CloseSvg from "../../assets/svgs/Close";
+import CloseSvg from "../../../assets/svgs/Close";
 import { toast } from "react-toastify";
 
 const CommentPostPage = () => {
