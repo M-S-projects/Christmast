@@ -1,22 +1,24 @@
+import BellSvg from "../../assets/svgs/Bell";
+import CandySvg from "../../assets/svgs/Candy";
+import { TreeItemType } from "../../types/TreeItemType";
+import ViewModal from "../../components/Modal/ViewModal";
+import * as S from "./style";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import {
   Link,
-  useLocation,
   useParams,
-  useRoutes,
+  useLocation,
   useSearchParams,
 } from "react-router-dom";
 import CommentTree from "../../assets/svgs/CommentTree";
-import * as S from "./style";
-import { TreeItemType } from "../../types/TreeItemType";
-import TreeItem from "../../components/TreeItem";
 import ArrowSvg from "../../assets/svgs/Arrow";
 import { toast } from "react-toastify";
 import { useRecoilState } from "recoil";
 import { isOpenState, pageNextState } from "../../atoms/state";
-import CommentPostPage from "../../components/PostModal";
+import CommentPostPage from "../../components/Modal/PostModal";
 import { API } from "../../API";
+import TreeItem from "../../components/TreeItem";
 
 type arrowType = "left" | "right";
 
@@ -30,6 +32,8 @@ const Tree = () => {
   const userId = params.userId;
   const [searchParams, setSearchParams] = useSearchParams();
   const pageId = searchParams.get("page");
+  const [isViewModalOpen, setViewModalOpen] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
 
   const firstPage = () => toast.error("첫 페이지입니다.");
   const lastPage = () => toast.error("마지막 페이지입니다.");
@@ -73,6 +77,11 @@ const Tree = () => {
     fetchData();
   }, [pageId]);
 
+  const handleTreeItemClick = (itemId: number) => {
+    setSelectedItemId(itemId);
+    setViewModalOpen(true);
+  };
+
   return (
     <>
       <S.Container>
@@ -94,7 +103,15 @@ const Tree = () => {
             <S.ItemContainer>
               {data
                 ? data.map((data: TreeItemType) => {
-                    return <TreeItem {...data} />;
+                    return (
+                      <TreeItem
+                        name={data.name}
+                        onClick={() => handleTreeItemClick(data.commentId)}
+                        key={data.commentId}
+                        commentId={data.commentId}
+                        commentType={data.commentType}
+                      />
+                    );
                   })
                 : ""}
             </S.ItemContainer>
@@ -124,6 +141,13 @@ const Tree = () => {
           <ArrowSvg />
         </Link>
       </S.Container>
+      {isViewModalOpen && (
+        <ViewModal
+          id={selectedItemId || 0}
+          isOpen={isViewModalOpen}
+          onClose={() => setViewModalOpen(false)}
+        />
+      )}
       <CommentPostPage />
     </>
   );
