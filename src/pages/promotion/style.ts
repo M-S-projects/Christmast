@@ -15,12 +15,14 @@ export const PromotionPage = styled.div`
 `;
 
 export const PromotionTitle = styled.div`
-  font-size: 50px;
-  margin-bottom: 1em;
+  font-size: 120px;
+  margin-bottom: 0.5em;
+  font-weight: 700;
 `;
 
 export const PromotionDesc = styled.div`
-  font-size: 25px;
+  font-size: 40px;
+  margin-bottom: 2em;
 `;
 
 export const Link = styled.div`
@@ -32,6 +34,7 @@ export const Link = styled.div`
     width: 10em;
     height: 1.5em;
     line-height: 1.5em;
+    font-size: 32px;
     text-align: center;
     background-color: #c9e1c3;
     color: #000;

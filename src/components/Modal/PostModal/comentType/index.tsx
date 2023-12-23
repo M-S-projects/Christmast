@@ -3,6 +3,7 @@ import { commentType } from "../../../../atoms/state";
 import CandySvg from "../../../../assets/svgs/Candy";
 import BellSvg from "../../../../assets/svgs/Bell";
 import * as S from "../style";
+import ToySvg from "../../../../assets/svgs/Toy";
 
 const CmtType = () => {
   const [cmtType, setCmtType] = useRecoilState(commentType);
@@ -16,7 +17,7 @@ const CmtType = () => {
       <S.radioTitle>장식을 선택해주세요!</S.radioTitle>
       <S.labelContainer>
         <label htmlFor="TOY">
-          <CandySvg />
+          <ToySvg />
           <S.labelDesc>장난감</S.labelDesc>
         </label>
         <label htmlFor="CANDY">

@@ -8,15 +8,10 @@ const BellSvg = () => {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
-      <rect
-        id="flat-yellow-bell 2"
-        width="59"
-        height="74"
-        fill="url(#pattern1)"
-      />
+      <rect id="flat-yellow-bell 2" width="59" height="74" fill="url(#bell)" />
       <defs>
         <pattern
-          id="pattern1"
+          id="bell"
           patternContentUnits="objectBoundingBox"
           width="1"
           height="1"

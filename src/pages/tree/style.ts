@@ -76,5 +76,6 @@ export const LinkContainer = styled.div`
     margin-right: 10px;
     border-radius: 0.75em;
     border: none;
+    cursor: pointer;
   }
 `;

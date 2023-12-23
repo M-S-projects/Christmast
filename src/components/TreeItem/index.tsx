@@ -1,5 +1,6 @@
 import BellSvg from "../../assets/svgs/Bell";
 import CandySvg from "../../assets/svgs/Candy";
+import ToySvg from "../../assets/svgs/Toy";
 import { TreeItemType } from "../../types/TreeItemType";
 import * as S from "./style";
 
@@ -13,7 +14,7 @@ const TreeItem = (props: TreeItemProps) => {
       {props.commentType === "BELL" ? (
         <BellSvg />
       ) : props.commentType === "TOY" ? (
-        <BellSvg />
+        <ToySvg />
       ) : (
         <CandySvg />
       )}

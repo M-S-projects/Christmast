@@ -15,12 +15,12 @@ const CandySvg = () => {
           width="51.3484"
           height="97.7865"
           transform="rotate(-42.3468 0 34.5891)"
-          fill="url(#pattern0)"
+          fill="url(#candy)"
         />
       </g>
       <defs>
         <pattern
-          id="pattern0"
+          id="candy"
           patternContentUnits="objectBoundingBox"
           width="1"
           height="1"
