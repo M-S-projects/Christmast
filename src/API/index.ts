@@ -1,5 +1,4 @@
 import axios from "axios";
-import TokenManager from "./tokenmanager";
 
 export const API = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
@@ -7,10 +6,8 @@ export const API = axios.create({
 });
 
 API.interceptors.request.use(async (config) => {
-  const tokenManager = new TokenManager();
-
-  config.headers["Authorization"] = tokenManager.accessToken
-    ? `Bearer ${tokenManager.accessToken}`
+  config.headers["Authorization"] = localStorage.getItem("chr-accessToken")
+    ? `Bearer ${localStorage.getItem("chr-accessToken")}`
     : undefined;
 
   return config;
