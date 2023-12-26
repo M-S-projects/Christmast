@@ -12,7 +12,6 @@ import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <RecoilRoot>
-      <ToastContainer />
       <GlobalStyle />
       <S.Index className="App">
         <Background />
