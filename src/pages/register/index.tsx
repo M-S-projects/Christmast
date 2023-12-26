@@ -40,6 +40,7 @@ const RegisterPage = () => {
 
   const onSubmit = (event: any) => {
     if (verified) signUp();
+    navigate("/");
   };
 
   const signUp = async () => {
