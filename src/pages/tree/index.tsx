@@ -38,6 +38,8 @@ const Tree = () => {
   const firstPage = () => toast.error("첫 페이지입니다.");
   const lastPage = () => toast.error("마지막 페이지입니다.");
   const noUser = () => toast.error("없는 유저입니다.");
+  const myTree = () =>
+    toast.error("자신의 트리로는 메세지를 보낼 수 없습니다.");
 
   useEffect(() => {
     userNameFetch();
@@ -125,11 +127,15 @@ const Tree = () => {
                 : ""}
             </S.ItemContainer>
             <S.LinkContainer>
-              <Link to={`../tree/${id}?page=0`}>내 트리로 돌아가기</Link>
+              <a href={`../tree/${id}?page=0`}>내 트리로 돌아가기</a>
               <button
                 onClick={() => {
-                  setIsOpen(true);
-                  setPageNext(false);
+                  if (userId === id) {
+                    myTree();
+                  } else {
+                    setIsOpen(true);
+                    setPageNext(false);
+                  }
                 }}
               >
                 방명록 쓰러가기
