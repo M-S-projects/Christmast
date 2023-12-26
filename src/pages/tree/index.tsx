@@ -1,5 +1,3 @@
-import BellSvg from "../../assets/svgs/Bell";
-import CandySvg from "../../assets/svgs/Candy";
 import { TreeItemType } from "../../types/TreeItemType";
 import ViewModal from "../../components/Modal/ViewModal";
 import * as S from "./style";
@@ -17,7 +15,6 @@ import { toast } from "react-toastify";
 import { useRecoilState } from "recoil";
 import { isOpenState, pageNextState } from "../../atoms/state";
 import CommentPostPage from "../../components/Modal/PostModal";
-import { API } from "../../API";
 import TreeItem from "../../components/TreeItem";
 import Toastcontainer from "../../components/ToastContainer";
 
@@ -47,11 +44,12 @@ const Tree = () => {
   }, [params]);
 
   const userNameFetch = async () => {
-    const _response: any = await API({
+    await axios({
       method: "get",
-      url: `/auth/${params.userId}`,
+      url: `${baseUrl}/auth/${params.userId}`,
     })
       .then((res: any) => {
+        console.log(res.data);
         setName(res.data.userName);
       })
       .catch((err) => {
