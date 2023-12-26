@@ -1,0 +1,19 @@
+[build]
+  base    = ""
+  publish = "build"
+  command = "CI= npm run build"
+
+# Production context: All deploys to the main
+# repository branch will inherit these settings.
+[context.production]
+  command = "CI= npm run build"
+
+# Deploy Preview context: All Deploy Previews
+# will inherit these settings.
+[context.deploy-preview]
+  command = "CI= npm run build"
+
+# Branch Deploy context: All deploys that are not in
+# an active Deploy Preview will inherit these settings.
+[context.branch-deploy]
+  command = "CI= npm run build"
