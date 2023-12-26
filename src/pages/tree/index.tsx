@@ -1,5 +1,3 @@
-import BellSvg from "../../assets/svgs/Bell";
-import CandySvg from "../../assets/svgs/Candy";
 import { TreeItemType } from "../../types/TreeItemType";
 import ViewModal from "../../components/Modal/ViewModal";
 import * as S from "./style";
@@ -17,7 +15,6 @@ import { toast } from "react-toastify";
 import { useRecoilState } from "recoil";
 import { isOpenState, pageNextState } from "../../atoms/state";
 import CommentPostPage from "../../components/Modal/PostModal";
-import { API } from "../../API";
 import TreeItem from "../../components/TreeItem";
 import Toastcontainer from "../../components/ToastContainer";
 
@@ -41,17 +38,20 @@ const Tree = () => {
   const firstPage = () => toast.error("첫 페이지입니다.");
   const lastPage = () => toast.error("마지막 페이지입니다.");
   const noUser = () => toast.error("없는 유저입니다.");
+  const myTree = () =>
+    toast.error("자신의 트리로는 메세지를 보낼 수 없습니다.");
 
   useEffect(() => {
     userNameFetch();
   }, [params]);
 
   const userNameFetch = async () => {
-    const _response: any = await API({
+    await axios({
       method: "get",
-      url: `/auth/${params.userId}`,
+      url: `${baseUrl}/auth/${params.userId}`,
     })
       .then((res: any) => {
+        console.log(res.data);
         setName(res.data.userName);
       })
       .catch((err) => {
@@ -127,11 +127,15 @@ const Tree = () => {
                 : ""}
             </S.ItemContainer>
             <S.LinkContainer>
-              <Link to={`../tree/${id}?page=0`}>내 트리로 돌아가기</Link>
+              <a href={`../tree/${id}?page=0`}>내 트리로 돌아가기</a>
               <button
                 onClick={() => {
-                  setIsOpen(true);
-                  setPageNext(false);
+                  if (userId === id) {
+                    myTree();
+                  } else {
+                    setIsOpen(true);
+                    setPageNext(false);
+                  }
                 }}
               >
                 방명록 쓰러가기
